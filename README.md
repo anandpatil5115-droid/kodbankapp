@@ -1,16 +1,54 @@
-# React + Vite
+# 🏦 Kodbank — Full Stack Fintech App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A premium dark fintech banking app with JWT authentication, Supabase PostgreSQL, and highly animated UI.
 
-Currently, two official plugins are available:
+## 🚀 Quick Start (Any Machine)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 1. Clone & Install
 
-## React Compiler
+```bash
+git clone https://github.com/anandpatil5115-droid/kodbankapp.git
+cd kodbankapp
+npm install
+cd server && npm install && cd ..
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 2. Set Up Environment Variables
 
-## Expanding the ESLint configuration
+Create `server/.env`:
+```
+DATABASE_URL=your_supabase_postgresql_url
+JWT_SECRET=your_jwt_secret
+PORT=3001
+NODE_ENV=development
+CLIENT_URL=http://localhost:5173
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 3. Run (One Command)
+
+```bash
+npm run dev
+```
+
+This starts **both** the frontend (Vite) and backend (Express) together.
+
+- Frontend → http://localhost:5173
+- Backend  → http://localhost:3001
+
+---
+
+## 🌐 Production (Vercel)
+
+Deploy to Vercel with env vars:
+- `DATABASE_URL`
+- `JWT_SECRET`
+
+The `/api` folder runs as Vercel serverless functions — no separate backend needed.
+
+---
+
+## Tech Stack
+- **Frontend**: React, Vite, Framer Motion, canvas-confetti
+- **Backend**: Node.js, Express (dev) / Vercel Serverless (prod)
+- **Database**: Supabase PostgreSQL
+- **Auth**: JWT + bcrypt + httpOnly cookies
