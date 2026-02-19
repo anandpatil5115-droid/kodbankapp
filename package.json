@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "concurrently -n FRONTEND,BACKEND -c cyan,yellow \"vite\" \"node server/index.js\"",
+    "dev": "concurrently -n FRONTEND,BACKEND -c cyan,yellow \"vite\" \"cd server && node index.js\"",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
