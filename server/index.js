@@ -186,7 +186,7 @@ app.post('/api/logout', (req, res) => {
 /* ── Start server ───────────────────────────────────────────────── */
 createTables()
     .then(() => {
-        app.listen(PORT, () => console.log(`🚀 Kodbank server running on http://localhost:${PORT}`));
+        app.listen(PORT, '127.0.0.1', () => console.log(`🚀 Kodbank server running on http://127.0.0.1:${PORT}`));
     })
     .catch((err) => {
         console.error('❌ Failed to initialize DB:', err.message);
