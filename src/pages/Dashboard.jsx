@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import confetti from 'canvas-confetti';
+import { apiFetch } from '../api';
+
 
 const PAGE_VARIANTS = {
     initial: { opacity: 0, y: 30, scale: 0.97, filter: 'blur(4px)' },
@@ -70,7 +72,7 @@ export default function Dashboard() {
 
     // Verify JWT on mount
     useEffect(() => {
-        fetch('/api/me', { credentials: 'include' })
+        apiFetch('/api/me')
             .then(r => r.json())
             .then(data => {
                 if (!data.success) navigate('/login');
@@ -96,7 +98,7 @@ export default function Dashboard() {
         setFeedback(null);
         setLoadingBalance(true);
         try {
-            const res = await fetch('/api/balance', { credentials: 'include' });
+            const res = await apiFetch('/api/balance');
             const data = await res.json();
             if (!res.ok) throw new Error(data.error);
 
@@ -116,7 +118,7 @@ export default function Dashboard() {
     };
 
     const handleLogout = async () => {
-        await fetch('/api/logout', { method: 'POST', credentials: 'include' });
+        await apiFetch('/api/logout', { method: 'POST' });
         navigate('/login');
     };
 

@@ -12,12 +12,23 @@ const PORT = process.env.PORT || 3001;
 const SECRET = process.env.JWT_SECRET;
 
 /* ── Middleware ─────────────────────────────────────────────────── */
+const isProd = process.env.NODE_ENV === 'production';
+
 app.use(cors({
-    origin: [
-        process.env.CLIENT_URL || 'http://localhost:5173',
-        'http://localhost:5174',
-        'http://localhost:5175',
-    ],
+    origin: (origin, callback) => {
+        // Allow any origin in dev; restrict to CLIENT_URL in prod
+        const allowed = [
+            process.env.CLIENT_URL,
+            'http://localhost:5173',
+            'http://localhost:5174',
+            'http://localhost:5175',
+        ].filter(Boolean);
+        if (!origin || allowed.includes(origin) || !isProd) {
+            callback(null, true);
+        } else {
+            callback(new Error('CORS: origin not allowed'));
+        }
+    },
     credentials: true,
 }));
 app.use(express.json());
@@ -111,11 +122,11 @@ app.post('/api/login', async (req, res) => {
             [tid, token, user.uid, expiry]
         );
 
-        // Set httpOnly cookie
+        // Set httpOnly cookie — sameSite:'none' required for cross-domain in production
         res.cookie('kodbank_token', token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'lax',
+            secure: isProd,
+            sameSite: isProd ? 'none' : 'lax',
             maxAge: 24 * 60 * 60 * 1000,
         });
 

@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import confetti from 'canvas-confetti';
 import InputField from '../components/InputField';
 import FeedbackMessage from '../components/FeedbackMessage';
+import { apiFetch } from '../api';
+
 
 const PAGE_VARIANTS = {
     initial: { opacity: 0, x: 60, filter: 'blur(4px)' },
@@ -64,7 +66,7 @@ export default function Login() {
 
         setLoading(true);
         try {
-            const res = await fetch('/api/login', {
+            const res = await apiFetch('/api/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',

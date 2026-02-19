@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import InputField from '../components/InputField';
 import FeedbackMessage from '../components/FeedbackMessage';
+import { apiFetch } from '../api';
+
 
 const PAGE_VARIANTS = {
     initial: { opacity: 0, x: 60, filter: 'blur(4px)' },
@@ -55,7 +57,7 @@ export default function Register() {
 
         setLoading(true);
         try {
-            const res = await fetch('/api/register', {
+            const res = await apiFetch('/api/register', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username, email, password, phone }),
